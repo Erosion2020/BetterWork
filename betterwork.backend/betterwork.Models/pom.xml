@@ -11,16 +11,16 @@
 
     <artifactId>betterwork.Models</artifactId>
 
-    <properties>
-        <javax.persistence.version>2.2</javax.persistence.version>
-    </properties>
-
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api -->
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <version>${javax.persistence.version}</version>
+            <groupId>org.erosion</groupId>
+            <artifactId>betterwork.Mapping</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.erosion</groupId>
+            <artifactId>betterwork.Core</artifactId>
+            <version>0.1.0</version>
         </dependency>
     </dependencies>
 </project>
