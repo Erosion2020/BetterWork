@@ -1,4 +1,4 @@
-package com.erosion.models;
+package com.erosion.entity;
 
 
 import javax.persistence.*;
