@@ -1,10 +1,9 @@
 package com.erosion.core.interceptor;
 
-import com.erosion.core.annotation.Interface.ActionFilterAnnotation;
 import com.erosion.core.annotation.MinutesRequestLimit;
+import com.erosion.core.filters.ActionFilterAnnotation;
 import com.erosion.core.protocol.models.BetterProtocolContext;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -40,7 +39,7 @@ public class MinutesRequestLimitImpl extends ActionFilterAnnotation {
 
     @Override
     protected void InitParameter(BetterProtocolContext context) {
-        limit = context.getHandlerMethod().getMethod().getAnnotation(MinutesRequestLimit.class).limit();
+        limit = super.GetAnnotation(MinutesRequestLimit.class).limit();
     }
 
     @Override

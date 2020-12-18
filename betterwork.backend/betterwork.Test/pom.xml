@@ -11,5 +11,15 @@
 
     <artifactId>betterwork.Test</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.erosion</groupId>
+            <artifactId>betterwork.Application</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
-    @MinutesRequestLimit
+    @MinutesRequestLimit(limit = 3)
     @GetMapping("home")
     public String Home()
     {

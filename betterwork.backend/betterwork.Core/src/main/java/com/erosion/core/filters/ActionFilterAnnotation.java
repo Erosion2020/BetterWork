@@ -1,4 +1,4 @@
-package com.erosion.core.annotation.Interface;
+package com.erosion.core.filters;
 
 import com.erosion.core.exception.ActionObjectException;
 import com.erosion.core.protocol.models.BetterProtocolContext;
@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Executable;
+import java.lang.reflect.Method;
 
 /**
  * Make it easier to create filters
@@ -21,6 +23,11 @@ public abstract class ActionFilterAnnotation implements HandlerInterceptor {
     private BetterProtocolContext context = null;
 
     protected abstract void InitParameter(BetterProtocolContext context);
+
+    public <T extends Annotation> T GetAnnotation(Class<T> annotationClass)
+    {
+        return context.getHandlerMethod().getMethod().getAnnotation(annotationClass);
+    }
 
     /**
      * Before target method execution
