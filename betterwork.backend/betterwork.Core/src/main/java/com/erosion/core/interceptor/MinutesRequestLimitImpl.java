@@ -3,6 +3,7 @@ package com.erosion.core.interceptor;
 import com.erosion.core.annotation.MinutesRequestLimit;
 import com.erosion.core.filters.ActionFilterAnnotation;
 import com.erosion.core.protocol.models.BetterProtocolContext;
+import com.erosion.core.protocol.statuscode.HttpStatusCode;
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;
@@ -62,7 +63,7 @@ public class MinutesRequestLimitImpl extends ActionFilterAnnotation {
             if(temp.get(ip + path) > limit)
             {
                 context.getResponse().setHeader("second-retry-after",String.valueOf(60 - (new Date().getTime() - LastClearTime) / 1000));
-                context.getResponse().setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
+                context.getResponse().setStatus(HttpStatusCode.TooManyRequests.Code);
 
                 return false;
             }

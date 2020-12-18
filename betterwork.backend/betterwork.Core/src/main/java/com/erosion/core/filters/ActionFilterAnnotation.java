@@ -21,6 +21,9 @@ import java.lang.reflect.Method;
 public abstract class ActionFilterAnnotation implements HandlerInterceptor {
 
     private BetterProtocolContext context = null;
+    private boolean preInitStart = true;
+    private boolean postInitStart = true;
+    private boolean afterInitStart = true;
 
     protected abstract void InitParameter(BetterProtocolContext context);
 
@@ -71,31 +74,47 @@ public abstract class ActionFilterAnnotation implements HandlerInterceptor {
             handlerMethod = (HandlerMethod) handler;
         }else
             throw new ActionObjectException();
+
         return handlerMethod;
     }
 
     @Override
     public final boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        HandlerMethod handlerMethod = resolver(handler);
-        context = new BetterProtocolContext(request,response,handlerMethod);
-        InitParameter(context);
+        HandlerMethod handlerMethod = null;
+        if(preInitStart)
+        {
+            handlerMethod = resolver(handler);
+            context = new BetterProtocolContext(request,response,handlerMethod);
+            InitParameter(context);
+        }
+        preInitStart = false;
         return this.OnActionExecuting(context);
     }
     @Override
     public final void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
-        HandlerMethod handlerMethod = resolver(handler);
-        context = new BetterProtocolContext(request,response,handlerMethod);
-        InitParameter(context);
+        HandlerMethod handlerMethod = null;
+        if(postInitStart)
+        {
+            handlerMethod = resolver(handler);
+            context = new BetterProtocolContext(request,response,handlerMethod);
+            InitParameter(context);
+        }
+        postInitStart = false;
         this.OnActionExecuted(context,modelAndView);
     }
 
     @Override
     public final void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        HandlerMethod handlerMethod = resolver(handler);
-        context = new BetterProtocolContext(request,response,handlerMethod);
-        InitParameter(context);
+        HandlerMethod handlerMethod = null;
+        if(afterInitStart)
+        {
+            handlerMethod = resolver(handler);
+            context = new BetterProtocolContext(request,response,handlerMethod);
+            InitParameter(context);
+        }
+        afterInitStart = false;
         this.AllOperationDone(context,ex);
     }
 }
